@@ -57,6 +57,106 @@
   <script src="./static/js/app.js"></script>
   <script src="./static/js/bonus.js"></script>
 
+  <!-- Your existing scripts are here -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Add this script tag for your JavaScript code -->
+<script src="script.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="./static/js/app.js"></script>
+<script src="./static/js/bonus.js"></script>
+
+<!-- Add the new script for the dropdown and bar chart -->
+<script>
+    // Function to create the horizontal bar chart
+    function createBarChart(data) {
+        const sampleValues = data.sample_values.slice(0, 10).reverse();
+        const otuIds = data.otu_ids.slice(0, 10).reverse().map(id => `OTU ${id}`);
+        const otuLabels = data.otu_labels.slice(0, 10).reverse();
+
+        const trace = {
+            x: sampleValues,
+            y: otuIds,
+            text: otuLabels,
+            type: 'bar',
+            orientation: 'h'
+        };
+
+        const layout = {
+            title: 'Top 10 OTUs Found',
+            xaxis: { title: 'Sample Values' },
+            yaxis: { title: 'OTU IDs' }
+        };
+
+        Plotly.newPlot('barChart', [trace], layout);
+    }
+
+    // Event listener for dropdown change
+    document.getElementById('selDataset').addEventListener('change', function() {
+        // Fetch data for the selected individual (you'll need to implement this)
+        const selectedIndividualData = fetchData(this.value);
+
+        // Call the function to create the bar chart
+        createBarChart(selectedIndividualData);
+    });
+
+    // Function to fetch data for the selected individual (you'll need to implement this)
+    function fetchData(selectedIndividual)
+
+    Example: fetchData(defaultSelection); // Replace defaultSelection with your actual default selection
+</script>
+
+<!-- Your existing scripts are here -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<!-- Add this script tag for your JavaScript code -->
+<script src="script.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="./static/js/app.js"></script>
+<script src="./static/js/bonus.js"></script>
+
+<!-- Add the new script for the bubble chart -->
+<script>
+    // Function to create the bubble chart
+    function createBubbleChart(data) {
+        const otuIds = data.otu_ids;
+        const sampleValues = data.sample_values;
+        const otuLabels = data.otu_labels;
+
+        const trace = {
+            x: otuIds,
+            y: sampleValues,
+            text: otuLabels,
+            mode: 'markers',
+            marker: {
+                size: sampleValues,
+                color: otuIds,
+                colorscale: 'Earth' // You can choose a different colorscale
+            }
+        };
+
+        const layout = {
+            title: 'Bubble Chart for Samples',
+            xaxis: { title: 'OTU IDs' },
+            yaxis: { title: 'Sample Values' }
+        };
+
+        Plotly.newPlot('bubbleChart', [trace], layout);
+    }
+
+    // Event listener for dropdown change (you may already have this from the previous chart)
+    document.getElementById('selDataset').addEventListener('change', function() {
+        // Fetch data for the selected individual (you'll need to implement this)
+        const selectedIndividualData = fetchData(this.value);
+
+        // Call the function to create the bubble chart
+        createBubbleChart(selectedIndividualData);
+    });
+
+    // Function to fetch data for the selected individual (you'll need to implement this)
+    function fetchData(selectedIndividual) 
+     Example: fetchData(defaultSelection);
+     
+</script>
+
 </body>
 
 </html>
